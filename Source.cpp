@@ -4,7 +4,7 @@
 
 int main()
 {
-	Colony colony1(10);
+	Colony colony1(20);
 	Colony colony2(80);
 	Colony colony3(1);
 	Colony colony4(36);
@@ -23,10 +23,15 @@ int main()
 	herd.setElement(colony4, 3);
 	herd.setElement(colony5, 4);
 
+	
+
 	std::cout << herd;
 
+	colony2.operator++(150);
+	std::cout << colony2;
+
 	std::cout << std::endl<< "Filtered colonies:" << std::endl;
-	herd.filter([](int number) {return number > 100; });
+	herd.filter([](int number) {return number %2 == 0; });
 
 	std::cin.get();
 }

@@ -5,12 +5,6 @@
 
 Colonies::Colonies(int number):numberOfColonies(number),colonyArray(new Colony[number])
 {}
-Colonies::~Colonies()
-{
-	empty();
-}
-
-
 Colony & Colonies::operator[](int index)
 {
 	if (index >= 0 || index < numberOfColonies)
@@ -35,4 +29,27 @@ std::ostream & operator<<(std::ostream &output, Colonies &col)
 	for (int i = 0; i < col.getNumberCol(); i++)
 		output << col[i].getPopulation() << std::endl;
 	return output;
+}
+
+void Colonies::copy(const Colonies &other)
+{
+	if (!other.colonyArray)
+	{
+		colonyArray = new Colony[other.numberOfColonies];
+		for (int i = 0; i < other.numberOfColonies; i++)
+			colonyArray[i] = other.colonyArray[i];
+	}
+	else
+	{
+		colonyArray = nullptr;
+		numberOfColonies = 0;
+
+	}
+}
+
+void Colonies::move(Colonies &&other)
+{
+	numberOfColonies = std::move(other.numberOfColonies);
+	colonyArray = std::move(other.colonyArray);
+	other.colonyArray = nullptr;
 }
